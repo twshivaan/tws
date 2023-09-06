@@ -5,7 +5,7 @@ from scheduler.location_itenery import location_itenery
 # from scheduler.input import get_about,get_location
 import scheduler.input as getInput
 
-DB_ADDRESS = "../Data/tws2.db"
+DB_ADDRESS = "tws2.db"
 
 icon_map = {
     'Nature & Outdoor': "fa-tree",

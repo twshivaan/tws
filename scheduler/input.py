@@ -6,7 +6,7 @@ import json
 
 
 
-DB_ADDRESS = "../Data/tws2.db"
+DB_ADDRESS = "tws2.db"
 
 def open247(day_results):
     for day in day_results:
