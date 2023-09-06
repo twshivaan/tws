@@ -1,0 +1,39 @@
+<!-- attractions.html -->
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Select Attractions</title>
+{% endblock %}
+
+{% block body %}
+<div class="navbar">
+    <div class="logo">TWS</div>
+    <div class="menu-icon">&#9776;</div>
+</div>
+
+<div class="main-content">
+    <h1>Select Type of Attractions in {{ city_name }}:</h1>
+    <form action="/process_attractions" method="post" id="attractions-form">
+        <button type="button" class="attraction-select-button" id="select-all"><i class="icon fa-solid fa-circle-check"></i>Select All</button>
+        <button type="button" class="attraction-select-button" id="clear-all"><i class="icon fa-regular fa-circle-check"></i>Clear All</button>
+        <input type="hidden" name="selected_city" value="{{ selected_city }}">
+        <div class="attraction-type-container">
+            {% for attraction_type in attraction_types %}
+                <button type="button" class="attraction-type-button" data-attraction="{{ attraction_type }}">
+                    <i class="icon fas {{icon_map[attraction_type]}}"></i>{{ attraction_type }}
+                </button>
+            {% endfor %}
+        </div>
+        <input type="hidden" name="selected_attractions" id="selected-attractions">            
+    </form>
+    <div class="location-icon-attraction" id="location-icon-attraction" data-city-name="{{ city_name }}" data-start-date="{{ start_date }}" data-end-date="{{ end_date }}">
+        <i class="fa-solid fa-location-dot fa-bounce"></i> Get Itinerary <i class="fa-solid fa-angles-right"></i>
+    </div>
+</div>
+
+<footer>
+    <img src="{{ url_for('static', filename='banners/'+city_name+'.png') }}" alt="Footer image" class="footer-image">
+</footer>
+<script src="{{ url_for('static', filename='attractions.js') }}"></script>
+
+{% endblock %}

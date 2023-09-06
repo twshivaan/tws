@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='itenery.css') }}">
+<title>TWS</title>
+{% endblock %}
+
+{% block body %}
+<div class="navbar">
+    <div class="logo">TWS</div>
+    <div class="menu-icon">&#9776;</div>
+</div>
+<div class="filter-bar">
+    <div class="filters">
+        <div class="filter-button" id="add-place-button">Add Place</div>
+        <div class="filter-button" id="edit-place-button">Edit Type</div>
+    </div>
+    <div class="filter-button" id="filter-button" data-city-name="{{ request_data['city'] }}" data-start-date="{{ request_data['st_date'] }}" data-end-date="{{ request_data['en_date'] }}"><i class="fa-solid fa-location-dot"></i> Update Itenery</div>
+</div>
+<div class="itenery">
+    <div class="left">
+        <i class="dir-button fa-solid fa-circle-chevron-left" id="left-button"></i>
+    </div>
+     <div class="center" id="content">
+        {% for day_number, day_data in response_data.items() %}
+        <div class="internal">
+            <div class="dayHead">
+                <div class="dayNumber">DAY {{ day_number +1}}</div>
+                <div class="dayInfo">
+                    <div class="headDay">{{ day_data['day'] }}, {{ day_data['date'].strftime("%d %b").upper() }}</div>
+                </div>
+            </div>
+            <div class="dayItenery">
+                {% for attraction in day_data['attractions']%}
+                <div class="attraction" id=attractionID-{{attraction['id']}}>
+                    <div class="attractionHead">
+                        <div class="attractionName">{{attraction['name']}}</div>
+                        <div class="attractionTime">{{format_time(attraction['start_time'])}} - {{format_time(attraction['end_time'])}}</div>
+                    </div>
+                    <div class="attractionHead">
+                        <div class="attractionType"><i class="icon fas {{icon_map[attraction['type']]}}"></i>{{attraction['type']}}</div>
+                        <div class="attractionRating"><i class="fa-solid fa-star fa-sm"></i> {{attraction['rating']}}</div>
+                    </div>
+                    <div class="attractionAbout">{{getInput.get_about(attraction['id'])}}</div>
+                    <div hidden class="attractionLocation">{{getInput.get_location(attraction['id'])}}</div>
+                    <div hidden class="attractionTiming">{{getInput.get_timing(attraction['id'])}}</div>
+                    <div hidden class="attractionInitDuration">{{getInput.get_duration(attraction['id'])}}</div>
+                    <div hidden class="attractionDuration">{{getInput.get_duration(attraction['id'])}}</div>
+                    <div hidden class="attractionPhotos">{{getInput.get_photos(attraction['id'])}}</div>
+                    <div hidden class="attractionRemove">0</div>
+                </div>
+                {% endfor%}
+            </div>
+            <!-- Add more information about attractions here if needed -->
+        </div>
+        {% endfor %}
+     </div>
+     <div class="right">
+        <i class="fa-solid fa-circle-chevron-right" id="right-button"></i>
+    </div>
+</div>
+<footer>
+    <img src="{{ url_for('static', filename='banners/'+city_name+'.png') }}" alt="Footer image" class="footer-image">
+</footer>
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <div class="lightbox-banner" id="lightbox-banner"></div>
+        <i class="close-button fa-solid fa-circle-xmark"></i>
+        <!-- <span class="close-button">&times;</span> -->
+        <!-- Content of the lightbox goes here -->
+        <div class="lightbox-top">
+            <div class="lightbox-name" id="lightbox-name" ></div>
+            <div class="lightbox-remove" id="lightbox-remove">Remove</div>
+        </div>
+        <div class="lightbox-main">
+            <div class="lightbox-head">
+                <div class="lightbox-location">
+                    <div class="heading">Location :</div>
+                    <div id="lightbox-location"></div>
+                </div>
+                <div class="lightbox-rating">
+                    <div class="heading">Rating : </div>
+                    <div id="lightbox-rating"></div>
+                </div>
+                <div class="lightbox-duration">
+                    <div class="heading">Duration :</div>
+                    <i class="fa-solid fa-square-minus" id="decrement-duration"></i>
+                    <span id="lightbox-duration"></span>
+                    <i class="fa-solid fa-square-plus" id="increment-duration"></i>
+                </div>
+                <div class="lightbox-timing" id="lightbox-timing"></div>
+            </div>
+            <div class="lightbox-photos" id="lightbox-photos"></div>
+        </div>
+        <div class="lightbox-about" >
+            <div class="heading">About :</div>
+            <div id="lightbox-about"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox for Adding Places -->
+<div id="add-place-lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <i class="close-button fa-solid fa-circle-xmark"></i>
+        <!-- Add Place content goes here -->
+        <!-- Example content -->
+        <div class="lightbox-top">
+            <div class="lightbox-name" id="add-place-name">Add a New Place</div>
+        </div>
+        <!-- Add your input fields or content for adding places here -->
+        <div class="add-place-form">
+            <!-- Add Place form fields -->
+            <!-- Example: -->
+            <span>Add Place : </span>
+            <input type="text" id="add-place-input" placeholder="Search for a place..."><br><br>
+
+            <!-- Add more input fields as needed -->
+
+            <!-- Submit button for adding places -->
+            <button id="add-place-submit" class="lightbox-remove">Add</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox for Editing Places -->
+<div id="edit-place-lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <i class="close-button fa-solid fa-circle-xmark"></i>
+        <!-- Edit Place content goes here -->
+        <!-- Example content -->
+        <div class="lightbox-top">
+            <div class="lightbox-name" id="edit-place-name">Edit Place</div>
+        </div>
+
+        <div class="lightbox-attractions">
+            <!-- Add your input fields or content for editing places here -->
+            <div>
+                <button type="button" class="attraction-select-button" id="select-all"><i class="icon fa-solid fa-circle-check"></i>Select All</button>
+                <button type="button" class="attraction-select-button" id="clear-all"><i class="icon fa-regular fa-circle-check"></i>Clear All</button>
+            </div>
+            <!-- <span>{{request_data['types']}}</span> -->
+            <div class="attraction-type-container">
+                {% for attraction_type in attraction_types %}
+                    {% if attraction_type in request_data['types'] %}
+                        <button type="button" class="attraction-type-button selected" data-attraction="{{ attraction_type }}">
+                            <i class="icon fas {{icon_map[attraction_type]}}"></i>{{ attraction_type }}
+                        </button>
+                    {% else %}
+                        <button type="button" class="attraction-type-button" data-attraction="{{ attraction_type }}">
+                            <i class="icon fas {{icon_map[attraction_type]}}"></i>{{ attraction_type }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>        
+            <input type="hidden" name="selected_attractions" id="selected-attractions">
+            <button id="edit-place-submit" class="lightbox-type-remove">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='itenery.js') }}"></script>
+{% endblock %}
+

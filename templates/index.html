@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>TWS</title>
+{% endblock %}
+
+{% block body %}
+<div class="navbar">
+    <div class="logo">TWS</div>
+    <div class="menu-icon">&#9776;</div>
+</div>
+
+<div class="main-content">
+    <h1>TRAVEL WITH SHIVAAN</h1>
+    <div class="input-container">
+        <div class="select-city-container">
+            <select class="custom-input" id="selected-city" required>
+                <option value="" selected disabled>Select a city</option>
+                {% for city in cities %}
+                    <option value="{{ city[0] }}">{{ city[1] }}</option>
+                {% endfor %}
+            </select>
+            <div class="location-icon" id="location-icon">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+            <img src="{{ url_for('static', filename='side_plane.png') }}" alt="Location Image" class="location-image">
+        </div>
+    </div>
+    <div class="date-container">
+        <div class="date-sub">
+            <label for="start-date">Start Date :</label>
+            <input type="date" id="start-date" class="date-input" placeholder="Start Date">
+        </div>
+        <div class="date-sub">
+            <label for="end-date">  End Date : </label>
+           <input type="date" id="end-date" class="date-input" placeholder="End Date">
+        </div>    
+    </div>
+</div>
+<!-- Your page content goes here -->
+<footer>
+    <img src="{{ url_for('static', filename='banners/index_banner.png') }}" alt="Footer image" class="footer-image">
+</footer>
+{% endblock %}
+
