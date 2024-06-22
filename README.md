@@ -8,7 +8,7 @@ Welcome to TWS, your go-to place for generating dynamic itineraries for over 20 
 2. **Get Your Schedule**: Receive a personalized itinerary based on your preferences.
 3. **Edit Your Itinerary**: Easily add, remove, or modify places and durations.
 
-<img src="/readme_images/TWS.gif" width="750" />
+<img src="/readme_images/TWS-Site.gif" width="750" />
 
 ## Algorithm Guidelines
 - **Provide a Wholesome List**: Ensure the user gets a comprehensive list of attractions.
