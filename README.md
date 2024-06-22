@@ -8,7 +8,7 @@ Welcome to TWS, your go-to place for generating dynamic itineraries for over 20 
 2. **Get Your Schedule**: Receive a personalized itinerary based on your preferences.
 3. **Edit Your Itinerary**: Easily add, remove, or modify places and durations.
 
-![TWS GIF](path_to_your_gif.gif)
+![TWS GIF](/readme_images/TWS.gif)
 
 ## Algorithm Guidelines
 - **Provide a Wholesome List**: Ensure the user gets a comprehensive list of attractions.
@@ -19,26 +19,10 @@ Welcome to TWS, your go-to place for generating dynamic itineraries for over 20 
 
 ---
 
-## Sample Itineraries
-
-### Image 1
-![City 1](path_to_image1.jpg)
-
-### Image 2
-![City 2](path_to_image2.jpg)
-
-### Image 3
-![City 3](path_to_image3.jpg)
-
-### Image 4
-![City 4](path_to_image4.jpg)
-
-### Image 5
-![City 5](path_to_image5.jpg)
-
-### Image 6
-![City 6](path_to_image6.jpg)
-
-### Image 7
-![City 7](path_to_image7.jpg)
-
+![City 1](/readme_images/Algorithm_page-0003.jpg)
+![City 1](/readme_images/Algorithm_page-0005.jpg)
+![City 1](/readme_images/Algorithm_page-0006.jpg)
+![City 1](/readme_images/Algorithm_page-0010.jpg)
+![City 1](/readme_images/Algorithm_page-0013.jpg)
+![City 1](/readme_images/Algorithm_page-0014.jpg)
+![City 1](/readme_images/Algorithm_page-0015.jpg)
